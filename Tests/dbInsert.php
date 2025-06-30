@@ -1,17 +1,15 @@
 <?php
-require_once "../App/Database/Manager.php";
 require "../vendor/autoload.php";
-use App\Database\Manager;
 
-$dbManager = Manager::getInstance();
-$connect = $dbManager::getDatabase()->selectCollection('tasklist');
-$insert = $connect->insertOne(array('name' => 'name'));
-$insert = $insert->getInsertedId();
-$findOne = $connect->findOne(['_id' => new MongoDB\BSON\ObjectId($insert)]);
-foreach($findOne as $entry) {
-    echo '<br>' . $entry . '<br>';
+use App\Models\TaskModel;
+
+$taskModel = new TaskModel();
+$result = $taskModel->create();
+$read = $taskModel->read();
+foreach($read as $entry) {
+    print_r($entry);
 };
-$delete = $connect->deleteOne(['_id' => new MongoDB\BSON\ObjectId($insert)])->getDeletedCount();
-echo $delete;
+$delete = $taskModel->delete($result);
+print_r($delete);
 
 ?>
