@@ -8,7 +8,7 @@ class Router {
         self::$routes['GET'][$path] = $callback;
     }
 
-    public static function post() {
+    public static function post(string $path, Object $callback): void {
         self::$routes['POST'][$path] = $callback;
     }
 
