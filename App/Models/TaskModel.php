@@ -6,11 +6,11 @@ use App\Models\Model;
 use MongoDB;
 
 class TaskModel extends Model {
-    private string $id;
-    private string $name;
-    private string $description;
-    private string $status;
-    private $created_at;
+    protected string $id;
+    protected string $name;
+    protected string $description;
+    protected int $status;
+    protected $created_at;
     
     public function __construct() {
         $this->dbManager = Manager::getInstance();
@@ -18,7 +18,7 @@ class TaskModel extends Model {
     }
 
     public function create() {
-        $cursor = $this->queryCollection()->insertOne(array('name' => 'name'));
+        $cursor = $this->queryCollection()->insertOne();
         return $cursor->getInsertedId();
     }
 

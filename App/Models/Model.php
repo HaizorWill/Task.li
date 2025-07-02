@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-class Model {
+abstract class Model {
     protected $dbManager;
     protected string $dbCollection;
 
