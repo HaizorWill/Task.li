@@ -28,12 +28,16 @@ class TaskModel extends Model {
     }
 
     public function update() {
-
+        
     }
 
     public function delete(string $query) {
         $result = $this->queryCollection()->deleteOne(['_id' => new MongoDB\BSON\ObjectId($query)]);
         return $result->getDeletedCount();
+    }
+
+    public function validate() {
+
     }
 }
 

@@ -9,7 +9,7 @@ abstract class Model {
         return $this->dbManager::getDatabase()->selectCollection($this->dbCollection);
     }
 
-    public function fromArray($data) {
+    protected function fromArray($data) {
         foreach ($data as $key => $value) {
             if(property_exists($this, $key)) {
                 $this->{$key} = $value;
@@ -17,16 +17,11 @@ abstract class Model {
         }
     }
 
-    // public abstract function Validate();
+    public abstract function Validate();
 
-    public function toArray($data) {
-        $dataArray = [];
-        foreach ($data as $key => $value) {
-            if(property_exists($this, $key)) {
-                $dataArray[$key] = $value;
-            }
-        }
-        return $dataArray;
+    protected function toArray() {
+        $dataArray = get_object_vars($this);
+        return array_filter($dataArray, fn($value, $key) => $key !== 'dbCollection' && !is_object($value), ARRAY_FILTER_USE_BOTH); #temporary implementation until i figure this out or it breaks
     }
 }
 ?>
